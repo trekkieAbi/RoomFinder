@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room.finder.mapper.UserMapper">
+    <insert id="saveUser" parameterMap="com.room.finder.model.User" useGeneratedKeys="true" keyProperty="id">
+        insert into `user`(name,email,password,isEnabled)values (#{name},#{email},#{password},#{isEnabled});
+    </insert>
+    <delete id="deleteUser" parameterType="Integer">
+        delete from `user` where id=#{id}
+    </delete>
+    <update id="updateUser" parameterType="com.room.finder.model.User">
+        UPDATE user set name=#{name},email=#{email},password=#{password},isEnabled=#{isEnabled} where id=#{id}
+    </update>
+    <select id="findUserByEmail" resultType="com.room.finder.model.User" parameterType="String">
+        select * from `user` where email=#{email}
+    </select>
+    <select id="findUserById" resultType="com.room.finder.model.User" parameterType="Integer">
+        select * from `user` where id=#{id}
+    </select>
+</mapper>

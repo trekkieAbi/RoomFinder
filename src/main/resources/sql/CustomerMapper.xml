@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room.finder.mapper.CustomerMapper">
+    <insert id="saveCustomer" parameterType="com.room.finder.model.Customer" useGeneratedKeys="true" keyProperty="id">
+        insert into customer(phone_number,user_id,role_id)values (#{phoneNumber},#{userId},#{roleId})
+    </insert>
+    <update id="updateCustomer" parameterType="com.room.finder.model.Customer">
+        update customer set phone_number=#{phoneNumber}
+    </update>
+    <select id="findCustomerById" parameterType="Integer">
+        select * from customer where id=#{id}
+    </select>
+    <select id="findCustomerByUser" parameterType="Integer">
+        select * from customer c inner join user u on c.user_id=u.id where user_id=#{userId}
+    </select>
+</mapper>
