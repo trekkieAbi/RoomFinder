@@ -10,10 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,7 +47,7 @@ private CustomUserDetailsService customUserDetailsService;
             else {
                 System.out.println("Invalid token, not start with bearer string");
             }
-            if(userName!=null && SecurityContextHolder.getContext().getAuthentication()==null) {
+            if(userName!=null && SecurityContextHolder.getContext().getAuthentication()==null) {	
                 final UserDetails userDetails=this.customUserDetailsService.loadUserByUsername(userName);
                 if(userDetails!=null && this.jwtHelper.validateToken(jwtToken, userDetails.getUsername())) {
                     List<GrantedAuthority> authorities=jwtHelper.getAuthoritiesClaimsFromToken(jwtToken);

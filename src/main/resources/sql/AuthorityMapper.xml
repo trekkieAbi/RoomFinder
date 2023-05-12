@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.room.finder.mapper.AuthorityMapper">
     <insert id="saveAuthority"  parameterType="com.room.finder.model.Authority" keyProperty="id" useGeneratedKeys="true" >
@@ -16,13 +15,14 @@
         DELETE FROM authority WHERE id = #{id}
     </delete>
 
-    <select id="findById" parameterType="Integer" resultType="com.room.finder.model.Authority"  >
+    <select id="findById" parameterType="Integer" resultType="com.room.finder.model.Authority">
         SELECT * FROM authority WHERE id = #{id}
     </select>
-    <select id="findByName" parameterType="String" resultType="com.room.finder.model.Authority"  >
-        SELECT * FROM authority WHERE name = #{name}
-    </select>
+    
     <select id="getAllAuthority" resultType="com.room.finder.model.Authority">
         SELECT * FROM authority
+    </select>
+    <select id="findByName" parameterType="String" resultType="com.room.finder.model.Authority">
+        select * FROM authority WHERE name=#{name}
     </select>
 </mapper>

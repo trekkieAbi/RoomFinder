@@ -11,13 +11,13 @@
     </delete>
 
     <select id="getAuthorityByRoleId" resultType="com.room.finder.model.Authority" parameterType="Integer">
-        select a.name  from `authority` a   inner join role_authority ra
+        select a.name  from `authority` a   inner join role_authority  ra
                                                       on a.id=ra.authority_id inner join role r on ra.role_id =r.id where r.id =#{roleId}
     </select>
-    <select id="checkWhetherDuplicateRoleAuthority" resultType="com.ecommerce.main.model.RoleAuthority" parameterType="com.ecommerce.main.model.RoleAuthority">
+    <select id="checkWhetherDuplicateRoleAuthority" resultType="com.room.finder.model.RoleAuthority" parameterType="com.room.finder.model.RoleAuthority">
         select * from role_authority where role_id=#{roleId} and authority_id=#{authorityId}
     </select>
-    <select id="getRoleAuthorityById" resultType="com.ecommerce.main.model.RoleAuthority" parameterType="Integer">
+    <select id="getRoleAuthorityById" resultType="com.room.finder.model.RoleAuthority" parameterType="Integer">
         select * from role_authority where id=#{id}
     </select>
 

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 public class AdvertisementDto {
@@ -13,5 +15,6 @@ public class AdvertisementDto {
     private Date roomAvailableDate;
     private String address;
     private Integer rent;
+    private List<RoomDto> roomDtoList;
 
 }

@@ -1,15 +1,16 @@
 package com.room.finder.mapper;
 
-import com.room.finder.model.Role;
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
+import com.room.finder.model.Role;
 
 @Mapper
 public interface RoleMapper {
     Integer saveRole(Role role);
     Integer updateRole(Role role);
     Role findById(Integer id);
-    Role findByName(String name);
+    Optional<Role> findByName(String roleName);
 
 }

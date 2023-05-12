@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.room.finder.mapper.RoomMapper">
+    <insert id="saveRoom" parameterType="com.room.finder.model.Room" keyProperty="id" useGeneratedKeys="true">
+        insert into room(name,image,image_path,advertisement_id)values (#{name},#{image},#{imagePath},#{advertisementId})
+    </insert>
+    <select id="selectRoomDtoByAdvertisement" parameterType="Integer" resultType="com.room.finder.dto.RoomDto">
+select r.id as id,r.image_path as imageFullPath,r.name as name,r.image as image from room r inner join advertisement a on r.advertisement_id=a.id where r.advertisement_id=#{advertisementId}
+    </select>
+
+
 </mapper>

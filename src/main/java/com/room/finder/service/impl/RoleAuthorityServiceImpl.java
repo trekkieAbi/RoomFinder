@@ -7,7 +7,6 @@ import com.room.finder.model.Authority;
 import com.room.finder.model.Role;
 import com.room.finder.model.RoleAuthority;
 import com.room.finder.service.RoleAuthorityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 

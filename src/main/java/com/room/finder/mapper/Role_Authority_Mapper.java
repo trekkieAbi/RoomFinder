@@ -4,8 +4,8 @@ import com.room.finder.model.Authority;
 import com.room.finder.model.RoleAuthority;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 @Mapper
 public interface Role_Authority_Mapper {
    Integer saveRoleAuthority(RoleAuthority roleAuthority);

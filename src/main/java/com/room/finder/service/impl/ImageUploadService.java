@@ -7,14 +7,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
 public class ImageUploadService implements com.room.finder.service.ImageUploadService {
 
     @Override
-    public String uploadImage(String path, MultipartFile file) throws IOException {
+    public Map<String,String> uploadImage(String path, MultipartFile file) throws IOException {
         String fileName= file.getOriginalFilename();
+        Map<String,String> message=new HashMap<>();
 
         String uniqueName= UUID.randomUUID().toString();
         String uniqueFileName=uniqueName.concat(fileName.substring(fileName.lastIndexOf(".")));
@@ -24,6 +27,7 @@ public class ImageUploadService implements com.room.finder.service.ImageUploadSe
             f.mkdir();
         }
         Files.copy(file.getInputStream(), Paths.get(fullPath));
-        return fullPath;
+        message.put(uniqueFileName,fullPath);
+        return message;
     }
 }

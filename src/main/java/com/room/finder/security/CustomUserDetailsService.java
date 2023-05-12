@@ -6,7 +6,6 @@ import com.room.finder.model.Customer;
 import com.room.finder.model.Landlord;
 import com.room.finder.model.Moderator;
 import com.room.finder.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

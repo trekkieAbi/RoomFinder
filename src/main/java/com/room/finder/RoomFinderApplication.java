@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-@ComponentScan("com.room.finder.mapper")
-//@MapperScan("com.room.finder.mapper.*")
-@ComponentScan(basePackages = {"com.room.finder.*"})
+//@ComponentScan({"com.room.finder.mapper","com.room.finder.controller"})
 
+@ComponentScan(basePackages = {"com.room.finder.*"})
+@MapperScan("com.room.finder.mapper")
 @SpringBootApplication
 public class RoomFinderApplication {
 

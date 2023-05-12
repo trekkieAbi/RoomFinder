@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Template for email</title>
+</head>
+<body>
+<p>
+  Hello,<span th:text="${name}"></span>
+</p>
+<p>
+  <h2 th:text="${subject}"></h2>
+</p>
+<p th:text="${body}"></p>
+</body>
+</html>

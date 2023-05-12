@@ -3,6 +3,8 @@ package com.room.finder.service.impl;
 import com.room.finder.mapper.AuthorityMapper;
 import com.room.finder.model.Authority;
 import com.room.finder.service.AuthorityService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class AuthorityServiceImpl implements AuthorityService {
+	@Autowired
     private AuthorityMapper authorityMapper;
     @Override
     public Map<Integer,String> createAuthority(Authority authority) throws Exception {

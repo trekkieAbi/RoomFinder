@@ -5,6 +5,7 @@ import com.room.finder.dto.UserDto;
 import com.room.finder.mapper.RoleMapper;
 import com.room.finder.mapper.Role_Authority_Mapper;
 import com.room.finder.mapper.UserMapper;
+import com.room.finder.model.Role;
 import com.room.finder.model.User;
 import com.room.finder.security.CustomUserDetails;
 import com.room.finder.security.CustomUserDetailsService;
@@ -19,8 +20,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -74,7 +75,8 @@ public class UserController {
     private UserDto getUserDto(User user){
        UserDto userDto=new UserDto();
        userDto.setUser(user);
-       userDto.setRoleId(roleMapper.findByName(user.getName()).getId());
+       Optional<Role> retrievedRole=roleMapper.findByName(user.getRoleName());
+       userDto.setRoleId(retrievedRole.get().getId());
        return userDto;
     }
 

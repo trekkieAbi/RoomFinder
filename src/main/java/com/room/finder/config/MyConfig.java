@@ -1,7 +1,7 @@
 package com.room.finder.config;
-
 import com.room.finder.constant.AppConstant;
 import com.room.finder.exception.JwtAuthenticationEntryPoint;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +22,7 @@ import com.room.finder.security.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity()
+@MapperScan("com.room.finder.mapper")
 public class MyConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailService;
@@ -43,7 +44,7 @@ public class MyConfig {
                 .cors()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers(AppConstant.PUBLIC_URLS)
+                .antMatchers(AppConstant.PUBLIC_URLS)
                 .permitAll()
                 .anyRequest().authenticated().and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
