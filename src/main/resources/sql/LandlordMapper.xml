@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room.finder.mapper.LandlordMapper">
+    <insert id="saveLandlord" parameterType="com.room.finder.model.Landlord" useGeneratedKeys="true" keyProperty="id">
+        insert into landlord(house_no,user_id,role_id)values (#{houseNumber},#{userId},#{roleId})
+    </insert>
+    <update id="updateLandlord" parameterType="com.room.finder.model.Landlord">
+        update landlord set phone_number=#{phoneNumber}
+    </update>
+    <select id="findLandlordById" parameterType="Integer">
+        select * from landlord where id=#{id}
+    </select>
+    <select id="findLandlordByUser" parameterType="Integer" resultType="com.room.finder.model.Landlord">
+        select * from landlord l inner join user u on l.user_id=u.id where user_id=#{userId}
+    </select>
+</mapper>
