@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room.finder.mapper.RoleMapper">
+<insert id="saveRole" parameterType="com.room.finder.model.Role"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO role(name)
+		VALUES(#{name})
+	</insert>
+	<update id="updateRole" parameterType="com.room.finder.model.Role">
+		UPDATE role SET name = #{name}
+		WHERE id = #{id}
+	</update>
+
+	<select id="getById" parameterType="Integer" resultType="com.room.finder.model.Role">
+		SELECT * FROM role WHERE id = #{id}
+	</select>
+
+
+	<select id="getByName" resultType="com.room.finder.model.Role" parameterType="String">
+		select * from role where name = #{roleName}
+	</select>
+</mapper>
