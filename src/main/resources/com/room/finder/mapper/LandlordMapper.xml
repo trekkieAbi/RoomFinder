@@ -8,10 +8,10 @@
     <update id="updateLandlord" parameterType="com.room.finder.model.Landlord">
         update landlord set phone_number=#{phoneNumber}
     </update>
-    <select id="findLandlordById" parameterType="Integer">
+    <select id="findLandlordById" parameterType="Integer" resultType="com.room.finder.model.Landlord">
         select * from landlord where id=#{id}
     </select>
-    <select id="findLandlordByUser" parameterType="Integer">
+    <select id="findLandlordByUser" parameterType="Integer" resultType="com.room.finder.model.Landlord">
         select * from landlord l inner join user u on l.user_id=u.id where user_id=#{userId}
     </select>
 </mapper>

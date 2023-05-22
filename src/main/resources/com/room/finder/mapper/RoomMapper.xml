@@ -8,5 +8,13 @@
 select r.id as id,r.image_path as imageFullPath,r.name as name,r.image as image from room r inner join advertisement a on r.advertisement_id=a.id where r.advertisement_id=#{advertisementId}
     </select>
 
+    <select id="selecRoomById" parameterType="Integer" resultType="com.room.finder.dto.RoomDto">
+        select r.id as id,r.image as image  from room r where r.id=#{id}
+    </select>
+
+    <delete id="deleteRoom" parameterType="Integer">
+        delete from room  where id=#{id}
+    </delete>
+
 
 </mapper>

@@ -18,8 +18,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtHelper {
+
+
     @Value("${jwt.secretkey}")
     private String secretKey;
+//    private static final String JWT_SECRET = "SomeecretKeywqnjkdqbnkdbqkbdqjdjkqjhuqhueihquiheeuiqhdaskjdasdhjkahdjoqhdowqiodjdkklsankldakdnkjadnjkasbdjkasbjkdbjqwbhdqwhduqwhdiadkahdjkqheqwoehqoeoqjdkandjabjkdbkjbdkanbndbasndbakdbjwqjqjlqnejkwhjhdjkqdnkqwbdjkdbhbqwbdjkqwbdkjndkjnqkdnjkqwdkjwbkd";
+
+
+
 
     public String generateToken(CustomUserDetails customUserDetails) {
         Map<String,Object> claims=new HashMap<>();
@@ -54,10 +60,14 @@ public class JwtHelper {
 
     @SuppressWarnings("deprecation")
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody();
+        //return Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
-    public <T> T getClaimFromToken(String token, Function<Claims,T> claimsResolver) {
+    public <T> T getClaimFromToken(String token,Function<Claims,T> claimsResolver) {
         Claims claims=this.getAllClaimsFromToken(token);
         return claimsResolver.apply(claims);
     }
@@ -65,6 +75,7 @@ public class JwtHelper {
 
     public String getUserNameFromToken(String token) {
         return this.getClaimFromToken(token, Claims::getSubject);
+       // return extractClaims(token).getSubject();
     }
 
     public Date getExpirationDateFromToken(String token) {
@@ -82,7 +93,7 @@ public class JwtHelper {
     }
 
 
-    public Authentication getAuthentication(String userName, List<GrantedAuthority> authorities, HttpServletRequest request) {
+    public Authentication getAuthentication(String userName,List<GrantedAuthority> authorities,HttpServletRequest request) {
         UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userName, null,authorities);
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
@@ -95,12 +106,15 @@ public class JwtHelper {
         List<GrantedAuthority> returnValue=null;
         @SuppressWarnings("unchecked")
         List<String> authorities=(List<String>)claims.get("authorities");
-        if(authorities==null) return returnValue;
+        if(authorities==null)
+            return returnValue;
 
         returnValue=new ArrayList<GrantedAuthority>();
         return authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
 
     }
+
+
 
 }

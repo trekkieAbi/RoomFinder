@@ -2,13 +2,16 @@ package com.room.finder.service.impl;
 import com.room.finder.dto.UserDto;
 import com.room.finder.mapper.CustomerMapper;
 import com.room.finder.mapper.LandlordMapper;
+import com.room.finder.mapper.ModeratorMapper;
 import com.room.finder.mapper.RoleMapper;
 import com.room.finder.mapper.UserMapper;
 import com.room.finder.model.Customer;
 import com.room.finder.model.Landlord;
+import com.room.finder.model.Moderator;
 import com.room.finder.model.Role;
 import com.room.finder.model.User;
 import com.room.finder.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,16 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class UserServiceImpl implements UserService {
-
+@Autowired
     private UserMapper userMapper;
-
+@Autowired
     private LandlordMapper landlordMapper;
-
+@Autowired
     private CustomerMapper customerMapper;
-
+@Autowired
     private RoleMapper roleMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ModeratorMapper moderatorMapper;
     @Override
     public String registerUser(UserDto userDto) {
         String message="";
@@ -44,10 +49,24 @@ public class UserServiceImpl implements UserService {
             case "Customer":
                 User retrievedCustomer=userDto.getUser();
                 retrievedCustomer.setEnabled(true);
+                retrievedCustomer.setPassword(passwordEncoder.encode(retrievedCustomer.getPassword()));
+            	retrievedCustomer.setRoleName(roleMapper.findById(userDto.getRoleId()).getName());
                 userMapper.saveUser(retrievedCustomer);
                 Customer customer=new Customer(userDto.getPhoneNumber(),retrievedCustomer.getId(), userDto.getRoleId());
                 customerMapper.saveCustomer(customer);
                 message="customer created successfully!!!";
+                break;
+            case "Moderator":
+            	User retrievedModerator=userDto.getUser();
+            	retrievedModerator.setEnabled(true);
+            	retrievedModerator.setPassword(passwordEncoder.encode(retrievedModerator.getPassword()));
+    			String moderatorName=roleMapper.findById(userDto.getRoleId()).getName();
+    			retrievedModerator.setRoleName(moderatorName);
+            	userMapper.saveUser(retrievedModerator);
+            	Moderator moderator=new Moderator(retrievedModerator.getId(),userDto.getRoleId());
+            	moderatorMapper.saveModerator(moderator);
+            	message="moderator created successfully";
+            	break;
         }
         return message;
     }
@@ -57,10 +76,10 @@ public class UserServiceImpl implements UserService {
         if(retrievedRole==null){
             throw new RuntimeException("Role not found for the given id");
         }
-        if(retrievedRole.getName().equalsIgnoreCase("LANDLORD")){
+        if(retrievedRole.getName().equalsIgnoreCase("ROLE_LANDLORD")){
             userDto.setPhoneNumber(null);
             return "Landlord";
-        } else if (retrievedRole.getName().equalsIgnoreCase("customer")) {
+        } else if (retrievedRole.getName().equalsIgnoreCase("role_customer")) {
             userDto.setHouseNumber(null);
             return "Customer";
         }else {

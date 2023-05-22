@@ -3,7 +3,7 @@ package com.room.finder.controller;
 import com.room.finder.dto.LoginDto;
 import com.room.finder.dto.UserDto;
 import com.room.finder.mapper.RoleMapper;
-import com.room.finder.mapper.Role_Authority_Mapper;
+import com.room.finder.mapper.RoleAuthorityMapper;
 import com.room.finder.mapper.UserMapper;
 import com.room.finder.model.Role;
 import com.room.finder.model.User;
@@ -11,6 +11,8 @@ import com.room.finder.security.CustomUserDetails;
 import com.room.finder.security.CustomUserDetailsService;
 import com.room.finder.service.UserService;
 import com.room.finder.util.JwtHelper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +28,19 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
+	@Autowired
     private UserService userService;
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
     private JwtHelper jwtHelper;
-
+    @Autowired
     private UserMapper userMapper;
-
+    @Autowired
     private RoleMapper roleMapper;
-    private Role_Authority_Mapper roleAuthorityMapper;
-
-
-
+    @Autowired
+    private RoleAuthorityMapper roleAuthorityMapper;
+    @Autowired
     private AuthenticationManager authenticationManager;
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     ResponseEntity<String> registerUser(@RequestBody UserDto userDto){

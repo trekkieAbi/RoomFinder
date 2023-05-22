@@ -13,8 +13,10 @@ public interface AdvertisementService {
     Integer submitAdvertisement(Integer advertisementId,Principal principal);
 
     Map<Integer,String> acceptAdvertisement(Integer advertisementId) throws MessagingException;
-    Map<Integer,String> rejectAdvertisement(Integer advertisementId,Principal principal) throws MessagingException;
-    ArrayList<AdvertisementDto> getAllAcceptedAdvertisement(Principal principal);
-    Map<Integer,String> editAdvertisement(Integer advertisementId,Principal principal);
+    Map<Integer,String> rejectAdvertisement(Integer advertisementId) throws MessagingException;
+    ArrayList<AdvertisementDto> getAllAcceptedAdvertisementForLandlord(Principal principal);
+    Map<Integer,String> editAdvertisement(AdvertisementDto advertisementDto,Principal principal,MultipartFile[] multipartFiles) throws IOException;
+
+    ArrayList<AdvertisementDto> getAllAcceptedAdvertisement();
 
 }

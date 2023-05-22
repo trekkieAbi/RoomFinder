@@ -13,8 +13,8 @@ public interface AdvertisementMapper {
     Advertisement findPendingAdvertisementById(Integer id);
     ArrayList<AdvertisementDto> findAllAcceptedAdvertisementCreatedByLandlord(Integer landlordId);
     ArrayList<Advertisement> findAllUnderReviewAdvertisement();
-
     Advertisement findPendingAdvertisementByIdAndUser(SearchAdvertisementDto advertisementDto);
     Advertisement findUnderReviewAdvertisementById(Integer advertisementId);
    Advertisement findAdvertisementById(Integer advertisementId);
+    ArrayList<AdvertisementDto> findAllAcceptedAdvertisement();
 }

@@ -4,10 +4,19 @@ public class RoomDto {
     private Integer id;
     private String image;
     private String name;
+
     private String imageFullPath;
 
     public String getName() {
         return name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -22,13 +31,7 @@ public class RoomDto {
         this.imageFullPath = imageFullPath;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getImage() {
         return image;

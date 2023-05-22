@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;
 @Mapper
-public interface Role_Authority_Mapper {
+public interface RoleAuthorityMapper {
    Integer saveRoleAuthority(RoleAuthority roleAuthority);
    Integer deleteRoleAuthority(Integer roleAuthorityId);
    ArrayList<Authority> getAuthorityByRoleId(Integer roleId);

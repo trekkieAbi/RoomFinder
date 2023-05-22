@@ -2,20 +2,24 @@ package com.room.finder.service.impl;
 
 import com.room.finder.mapper.AuthorityMapper;
 import com.room.finder.mapper.RoleMapper;
-import com.room.finder.mapper.Role_Authority_Mapper;
+import com.room.finder.mapper.RoleAuthorityMapper;
 import com.room.finder.model.Authority;
 import com.room.finder.model.Role;
 import com.room.finder.model.RoleAuthority;
 import com.room.finder.service.RoleAuthorityService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
 public class RoleAuthorityServiceImpl implements RoleAuthorityService {
-
-    private Role_Authority_Mapper roleAuthorityMapper;
-
+    @Autowired
+    private RoleAuthorityMapper roleAuthorityMapper;
+    @Autowired
     private RoleMapper roleMapper;
+    @Autowired
     private AuthorityMapper authorityMapper;
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 import javax.servlet.FilterChain;
@@ -19,12 +20,15 @@ import java.util.List;
 
 @Service
 public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
-@Autowired
+    @Autowired
     private JwtHelper jwtHelper;
-@Autowired
-private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailService;
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         if(request.getMethod().equalsIgnoreCase("OPTIONS")) {
             response.setStatus(HttpStatus.OK.value());
         }
@@ -45,10 +49,10 @@ private CustomUserDetailsService customUserDetailsService;
                 }
             }
             else {
-                System.out.println("Invalid token, not start with bearer string");
+                System.out.println("Invalid token");
             }
-            if(userName!=null && SecurityContextHolder.getContext().getAuthentication()==null) {	
-                final UserDetails userDetails=this.customUserDetailsService.loadUserByUsername(userName);
+            if(userName!=null && SecurityContextHolder.getContext().getAuthentication()==null) {
+                final UserDetails userDetails=this.customUserDetailService.loadUserByUsername(userName);
                 if(userDetails!=null && this.jwtHelper.validateToken(jwtToken, userDetails.getUsername())) {
                     List<GrantedAuthority> authorities=jwtHelper.getAuthoritiesClaimsFromToken(jwtToken);
                     Authentication authenticationToken=jwtHelper.getAuthentication(userName, authorities, request);
@@ -60,8 +64,6 @@ private CustomUserDetailsService customUserDetailsService;
             filterChain.doFilter(request, response);
 
         }
-
-
-
     }
+
 }

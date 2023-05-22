@@ -1,31 +1,35 @@
 package com.room.finder.security;
 
 import com.room.finder.dto.UserDto;
-import com.room.finder.mapper.*;
+import com.room.finder.mapper.CustomerMapper;
+import com.room.finder.mapper.LandlordMapper;
+import com.room.finder.mapper.ModeratorMapper;
+import com.room.finder.mapper.RoleAuthorityMapper;
+import com.room.finder.mapper.UserMapper;
 import com.room.finder.model.Customer;
 import com.room.finder.model.Landlord;
 import com.room.finder.model.Moderator;
 import com.room.finder.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+	@Autowired
     private UserMapper  userMapper;
+	@Autowired
     private ModeratorMapper moderatorMapper;
-
-    private Role_Authority_Mapper roleAuthorityMapper;
-
+	
+@Autowired
+    private RoleAuthorityMapper roleAuthorityMapper;
+@Autowired
 
     private LandlordMapper landlordMapper;
-
+@Autowired
     private  CustomerMapper customerMapper;
-
-
-
-    @Override
+@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User retrievedUser=userMapper.findUserByEmail(username);

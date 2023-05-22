@@ -9,4 +9,8 @@ import java.util.ArrayList;
 public interface RoomMapper {
     Integer saveRoom(Room room);
     ArrayList<RoomDto> selectRoomDtoByAdvertisement(Integer advertisementId);
+    RoomDto selecRoomById(Integer id);
+
+   Integer deleteRoom(Integer id);
+
 }

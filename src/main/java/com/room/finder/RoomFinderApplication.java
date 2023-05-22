@@ -1,24 +1,17 @@
 package com.room.finder;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-//@ComponentScan({"com.room.finder.mapper","com.room.finder.controller"})
+import java.util.Date;
 
-@ComponentScan(basePackages = {"com.room.finder.*"})
-@MapperScan("com.room.finder.mapper")
+
+
 @SpringBootApplication
 public class RoomFinderApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RoomFinderApplication.class, args);
+        System.out.println(new Date(System.currentTimeMillis()+(5*60*60*1000)));
     }
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+   
 }

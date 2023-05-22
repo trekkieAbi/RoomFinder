@@ -20,7 +20,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     public Map<Integer,String> createAuthority(Authority authority) throws Exception {
         Map<Integer,String> message=new HashMap<>();
         Optional<Authority> authority2=authorityMapper.findByName(authority.getName().toLowerCase());
-        if(!authority2.isPresent()) {
+        if(authority2.isPresent()) {
             message.put(500,"authority with the given name already exists!!!");
             return message;
         }

@@ -1,8 +1,9 @@
 package com.room.finder.security;
 
 import com.room.finder.dto.UserDto;
-import com.room.finder.mapper.Role_Authority_Mapper;
+import com.room.finder.mapper.RoleAuthorityMapper;
 import com.room.finder.model.*;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,9 @@ public class CustomUserDetails implements UserDetails {
 
    private UserDto userDto;
 
-    private Role_Authority_Mapper roleAuthorityMapper;
+    private RoleAuthorityMapper roleAuthorityMapper;
 
-    public CustomUserDetails(UserDto userDto, Role_Authority_Mapper roleAuthorityMapper) {
+    public CustomUserDetails(UserDto userDto, RoleAuthorityMapper roleAuthorityMapper) {
         this.userDto=userDto;
         this.roleAuthorityMapper = roleAuthorityMapper;
 

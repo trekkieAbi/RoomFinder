@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.room.finder.mapper.Role_Authority_Mapper">
+<mapper namespace="com.room.finder.mapper.RoleAuthorityMapper">
     <insert id="saveRoleAuthority" parameterType="com.room.finder.model.RoleAuthority" useGeneratedKeys="true" keyProperty="id">
         insert into role_authority(role_id,authority_Id) values(#{roleId},#{authorityId})
     </insert>

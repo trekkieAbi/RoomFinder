@@ -1,8 +1,6 @@
 package com.room.finder.mapper;
-
 import com.room.finder.model.Authority;
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.ArrayList;
 import java.util.Optional;
 

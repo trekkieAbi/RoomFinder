@@ -23,7 +23,7 @@ return status;
     }
     public static boolean validateModeratorSelectionStatus(String status){
         boolean resultStatus=false;
-        if(status.equals(status.equals(AdvertisementStatus.under_review))){
+        if(status.equals(AdvertisementStatus.under_review.toString())){
             resultStatus=true;
         }
         return resultStatus;
@@ -37,11 +37,19 @@ return status;
         if(i>=0){
             extension=fileName.substring(i+1);
         }
-        for(int i1=0;i<AppConstant.fileSupportedExtension.length;i++){
+        for(int i1=0;i1<AppConstant.fileSupportedExtension.length;i1++){
             if(extension.equalsIgnoreCase(AppConstant.fileSupportedExtension[i1])){
                 status=true;
                 break;
             }
+        }
+        return status;
+    }
+
+    public static boolean validateRoomRent(Integer rentFee){
+        boolean status=false;
+        if(rentFee>0){
+            status=true;
         }
         return status;
     }

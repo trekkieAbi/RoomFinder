@@ -7,10 +7,10 @@
     <update id="updateCustomer" parameterType="com.room.finder.model.Customer">
         update customer set phone_number=#{phoneNumber}
     </update>
-    <select id="findCustomerById" parameterType="Integer">
+    <select id="findCustomerById" parameterType="Integer" resultType="com.room.finder.model.Customer">
         select * from customer where id=#{id}
     </select>
-    <select id="findCustomerByUser" parameterType="Integer">
+    <select id="findCustomerByUser" parameterType="Integer" resultType="com.room.finder.model.Customer">
         select * from customer c inner join user u on c.user_id=u.id where user_id=#{userId}
     </select>
 </mapper>
