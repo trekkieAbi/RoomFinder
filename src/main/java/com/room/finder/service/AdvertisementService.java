@@ -19,4 +19,6 @@ public interface AdvertisementService {
 
     ArrayList<AdvertisementDto> getAllAcceptedAdvertisement();
 
+    Integer deleteAdvertisement(Integer advertisementId,Principal principal);
+
 }

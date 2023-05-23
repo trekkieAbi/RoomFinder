@@ -179,7 +179,22 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         ArrayList<AdvertisementDto> advertisementDtoList= advertisementMapper.findAllAcceptedAdvertisement();
         return advertisementDtoList;
     }
-@Transactional(propagation=Propagation.REQUIRED,rollbackFor = {RuntimeException.class,IOException.class})
+
+    @Override
+    public Integer deleteAdvertisement(Integer advertisementId, Principal principal) {
+        Integer resultStatus=0;
+        SearchAdvertisementDto advertisementDto=new SearchAdvertisementDto();
+        Landlord landlord=getLandlord(principal);
+        advertisementDto.setLandlordId(landlord.getId());
+        advertisementDto.setAdvertisementId(advertisementId);
+       Advertisement advertisement=advertisementMapper.findAdvertisementByLandlordIdAndAdvertisementId(advertisementDto);
+       if(advertisement.getStatus().equals(AdvertisementStatus.accepted)||advertisement.getStatus().equals(AdvertisementStatus.rejected)){
+          resultStatus=advertisementMapper.deleteAdvertisement(advertisementId);
+       }
+        return resultStatus;
+    }
+
+    @Transactional(propagation=Propagation.REQUIRED,rollbackFor = {RuntimeException.class,IOException.class})
     @Override
     public Map<Integer, String> editAdvertisement(AdvertisementDto advertisementDto, Principal principal,MultipartFile[] multipartFiles) throws IOException {
         Map<Integer,String> message=new HashMap<>();

@@ -82,6 +82,16 @@ public class AdvertisementController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(message);
     }
+    @RequestMapping(value="/delete",method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority('delete_advertisement')")
+    ResponseEntity<String> deleteAdvertisementController(@PathVariable Integer advertisementId,Principal principal){
+        Integer status=advertisementService.deleteAdvertisement(advertisementId,principal);
+        if(status>0){
+            return ResponseEntity.status(HttpStatus.OK).body("advertisement deleted successfully by the loggedIn landlord");
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong!!!!");
+        }
+
 
     private AdvertisementDto getAdvertisementDto(String advertisementDto) throws JsonProcessingException {
         ObjectMapper objectMapper=new ObjectMapper();

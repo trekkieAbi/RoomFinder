@@ -20,6 +20,6 @@
 
 
 	<select id="findByName" resultType="com.room.finder.model.Role" parameterType="String">
-		select * from role where name = #{roleName}
+		select * from role r where r.name = #{roleName}
 	</select>
 </mapper>

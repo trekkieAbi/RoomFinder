@@ -79,6 +79,11 @@ select * from advertisement a where a.id=#{advertisementId}
 
     </select>
 
+    <select id="findAdvertisementByLandlordIdAndAdvertisementId" parameterType="com.room.finder.dto.SearchAdvertisementDto" resultType="com.room.finder.model.Advertisement">
+select a.id,a.status from  advertisement a inner join landlord l on a.landlord_id=l.id inner join user u on u.id=l.user_id where a.id=#{advertisementId} and l.id=#{landlordId}
+
+    </select>
+
 
 
 
