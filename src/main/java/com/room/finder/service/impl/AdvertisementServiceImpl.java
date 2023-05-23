@@ -179,9 +179,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         ArrayList<AdvertisementDto> advertisementDtoList= advertisementMapper.findAllAcceptedAdvertisement();
         return advertisementDtoList;
     }
-
+    @Transactional
     @Override
-    public Integer deleteAdvertisement(Integer advertisementId, Principal principal) {
+    public Integer deleteAdvertisement(Integer advertisementId, Principal principal) throws IOException {
         Integer resultStatus=0;
         SearchAdvertisementDto advertisementDto=new SearchAdvertisementDto();
         Landlord landlord=getLandlord(principal);
@@ -189,6 +189,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         advertisementDto.setAdvertisementId(advertisementId);
        Advertisement advertisement=advertisementMapper.findAdvertisementByLandlordIdAndAdvertisementId(advertisementDto);
        if(advertisement.getStatus().equals(AdvertisementStatus.accepted)||advertisement.getStatus().equals(AdvertisementStatus.rejected)){
+           ArrayList<RoomDto> roomDtos=roomMapper.selectRoomDtoByAdvertisement(advertisementId);
+           if(!roomDtos.isEmpty()){
+               deleteRoomWithImage(roomDtos);
+           }
           resultStatus=advertisementMapper.deleteAdvertisement(advertisementId);
        }
         return resultStatus;

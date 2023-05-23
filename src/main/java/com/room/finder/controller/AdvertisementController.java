@@ -82,9 +82,9 @@ public class AdvertisementController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(message);
     }
-    @RequestMapping(value="/delete",method = RequestMethod.DELETE)
+    @RequestMapping(value="/delete/{advertisementId}",method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('delete_advertisement')")
-    ResponseEntity<String> deleteAdvertisementController(@PathVariable Integer advertisementId,Principal principal){
+    ResponseEntity<String> deleteAdvertisementController(@PathVariable Integer advertisementId,Principal principal) throws IOException {
         Integer status=advertisementService.deleteAdvertisement(advertisementId,principal);
         if(status>0){
             return ResponseEntity.status(HttpStatus.OK).body("advertisement deleted successfully by the loggedIn landlord");
