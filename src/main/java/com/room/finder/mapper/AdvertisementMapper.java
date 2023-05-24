@@ -1,5 +1,6 @@
 package com.room.finder.mapper;
 import com.room.finder.dto.AdvertisementDto;
+import com.room.finder.dto.RentRangeSearchDto;
 import com.room.finder.dto.SearchAdvertisementDto;
 import com.room.finder.model.Advertisement;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,4 +22,5 @@ public interface AdvertisementMapper {
 
     Advertisement findAcceptedAdvertisementById(Integer id);
    ArrayList<AdvertisementDto> searchRoomByAddress(String address);
+    ArrayList<AdvertisementDto> searchRoomByRent(RentRangeSearchDto rentRangeSearchDto);
 }

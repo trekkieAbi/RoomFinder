@@ -113,7 +113,25 @@ select a.id,a.status from  advertisement a inner join landlord l on a.landlord_i
              ,r.image_path as roomDto_imageFullPath
         from user u inner join landlord l on u.id=l.user_id inner join advertisement a on l.id=a.landlord_id inner join room r on a.id=r.advertisement_id where a.address like #{pattern} and a.status='accepted'
     </select>
+    <select id="searchRoomByRent" resultMap="advertisementResult" parameterType="com.room.finder.dto.RentRangeSearchDto">
+     select
+         l.id as landlord_id
+            ,l.user_id as landlord_userId
+             ,l.house_no as landlord_houseNumber
+             ,u.email as user_email
+              ,a.id as advertisement_id
+             ,a.title as advertisement_title
+            ,a.description as advertisement_description
+             ,a.room_available_date as advertisement_roomAvailableDate
+             ,a.address as advertisement_address
+             ,a.rent as advertisement_rent
+             ,r.id as roomDto_id
+             ,r.name as roomDto_name
+             ,r.image as roomDto_image
+             ,r.image_path as roomDto_imageFullPath
+        from user u inner join landlord l on u.id=l.user_id inner join advertisement a on l.id=a.landlord_id inner join room r on a.id=r.advertisement_id where a.rent between #{startingRent} and #{endingRent}
 
+    </select>
 
 
 

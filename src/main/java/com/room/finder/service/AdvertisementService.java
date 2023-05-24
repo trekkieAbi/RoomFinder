@@ -1,5 +1,6 @@
 package com.room.finder.service;
 import com.room.finder.dto.AdvertisementDto;
+import com.room.finder.dto.RentRangeSearchDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -22,5 +23,6 @@ public interface AdvertisementService {
     Integer deleteAdvertisement(Integer advertisementId,Principal principal) throws IOException;
 
     ArrayList<AdvertisementDto> searchAdvertisementByAddress(String address);
+    ArrayList<AdvertisementDto> searchAdvertisementByRentRange(RentRangeSearchDto rentRangeSearchDto);
 
 }

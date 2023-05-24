@@ -3,6 +3,7 @@ package com.room.finder.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.room.finder.dto.AdvertisementDto;
+import com.room.finder.dto.RentRangeSearchDto;
 import com.room.finder.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -99,6 +100,16 @@ public class AdvertisementController {
         return ResponseEntity.status(HttpStatus.OK).body(advertisementDtos);
 
         }
+
+    @RequestMapping(value = "/searchByRent",method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('search_advertisement')")
+    ResponseEntity<ArrayList<AdvertisementDto>> searchAdvertisementByRentRangeController(@RequestBody RentRangeSearchDto rentRangeSearchDto){
+        ArrayList<AdvertisementDto> advertisementDtos=advertisementService.searchAdvertisementByRentRange(rentRangeSearchDto);
+        return ResponseEntity.status(HttpStatus.OK).body(advertisementDtos);
+
+    }
+
+
 
 
 

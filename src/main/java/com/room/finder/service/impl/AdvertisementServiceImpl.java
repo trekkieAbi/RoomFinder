@@ -2,6 +2,7 @@ package com.room.finder.service.impl;
 
 import com.room.finder.constant.AppConstant;
 import com.room.finder.dto.AdvertisementDto;
+import com.room.finder.dto.RentRangeSearchDto;
 import com.room.finder.dto.RoomDto;
 import com.room.finder.dto.SearchAdvertisementDto;
 import com.room.finder.mapper.AdvertisementMapper;
@@ -201,6 +202,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     @Override
     public ArrayList<AdvertisementDto> searchAdvertisementByAddress(String address) {
        return advertisementMapper.searchRoomByAddress(address);
+    }
+
+    @Override
+    public ArrayList<AdvertisementDto> searchAdvertisementByRentRange(RentRangeSearchDto rentRangeSearchDto) {
+        return advertisementMapper.searchRoomByRent(rentRangeSearchDto);
     }
 
     @Transactional(propagation=Propagation.REQUIRED,rollbackFor = {RuntimeException.class,IOException.class})
