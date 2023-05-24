@@ -13,4 +13,6 @@ public interface FavouriteService {
     Map<Integer,String> AddToFavourite(Favourite favourite, Principal principal);
     Map<Integer,String> RemoveRoomFromFavourite(RemoveRoomFromFavDto removeRoomFromFavDto,Principal principal);
     FavouriteDto getAllFavouriteRoom(Principal principal);
+
+
 }

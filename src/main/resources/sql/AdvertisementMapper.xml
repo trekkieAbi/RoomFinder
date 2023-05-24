@@ -88,7 +88,4 @@ select a.id,a.status from  advertisement a inner join landlord l on a.landlord_i
 
     </select>
 
-
-
-
 </mapper>
