@@ -11,7 +11,4 @@ private Integer roomId;
 private Integer customerId;
 private Integer advertisementId;
 
-
-
-
 }

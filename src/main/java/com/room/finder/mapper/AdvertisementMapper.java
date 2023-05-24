@@ -18,4 +18,6 @@ public interface AdvertisementMapper {
    Advertisement findAdvertisementById(Integer advertisementId);
     ArrayList<AdvertisementDto> findAllAcceptedAdvertisement();
     Advertisement findAdvertisementByLandlordIdAndAdvertisementId(SearchAdvertisementDto advertisementDto);
+
+    Advertisement findAcceptedAdvertisementById(Integer advertisementId);
 }
