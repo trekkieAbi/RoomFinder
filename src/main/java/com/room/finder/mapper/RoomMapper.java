@@ -13,4 +13,5 @@ public interface RoomMapper {
 
    Integer deleteRoom(Integer id);
 
+    RoomDto selectAcceptedRoom(Integer roomId);
 }
