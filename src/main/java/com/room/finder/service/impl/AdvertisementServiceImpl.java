@@ -150,11 +150,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             User retrievedUser=userMapper.findUserById(landlord.getUserId());
             email=getEmail(retrievedUser,submittedAdvertisement);
             try{
+                emailService.sendHtmlMessage(email);
 
             }catch (RuntimeException e){
                 throw new MessagingException(e.getLocalizedMessage());
             }
-            emailService.sendHtmlMessage(email);
             message.put(200,"email has been sent to the landlord's registered gmail,please check it for more information");
         }
         return message;

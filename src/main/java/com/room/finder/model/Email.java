@@ -1,15 +1,25 @@
 package com.room.finder.model;
 
 import com.room.finder.constant.AppConstant;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
 
+@NoArgsConstructor
 public class Email {
     String to;
     String from;
     String subject;
     String text;
+
+	public Email(String to, String from, String subject, String text) {
+		this.to = to;
+		this.from = from;
+		this.subject = subject;
+		this.text = text;
+	}
 
 	String template= AppConstant.EmailTemplatePage;
     Map<String,Object> properties;

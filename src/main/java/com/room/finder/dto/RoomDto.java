@@ -7,6 +7,16 @@ public class RoomDto {
 
     private String imageFullPath;
 
+    private Integer advertisementId;
+
+    public Integer getAdvertisementId() {
+        return advertisementId;
+    }
+
+    public void setAdvertisementId(Integer advertisementId) {
+        this.advertisementId = advertisementId;
+    }
+
     public String getName() {
         return name;
     }

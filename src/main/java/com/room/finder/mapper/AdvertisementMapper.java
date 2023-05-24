@@ -23,4 +23,10 @@ public interface AdvertisementMapper {
     Advertisement findAcceptedAdvertisementById(Integer id);
    ArrayList<AdvertisementDto> searchRoomByAddress(String address);
     ArrayList<AdvertisementDto> searchRoomByRent(RentRangeSearchDto rentRangeSearchDto);
+
+    Advertisement selectAcceptedAdvertisementByRoomId(Integer id);
+
+    String selectLandlordEmailByAdvertisementId(Integer id);
+
+    AdvertisementDto selectAdvertisementForEnquiryMailBody(Integer id);
 }

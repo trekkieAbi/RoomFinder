@@ -109,10 +109,6 @@ public class AdvertisementController {
 
     }
 
-
-
-
-
     private AdvertisementDto getAdvertisementDto(String advertisementDto) throws JsonProcessingException {
         ObjectMapper objectMapper=new ObjectMapper();
         return objectMapper.readValue(advertisementDto,AdvertisementDto.class);

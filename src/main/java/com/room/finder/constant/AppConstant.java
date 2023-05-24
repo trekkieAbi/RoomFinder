@@ -25,4 +25,7 @@ public class AppConstant {
     @Value("${spring.mail.username}")
     private  String from;
     public final static String FROM="trekkieabishek94@gmail.com";
+
+    public static final String SUBJECT_ENQUIRYMAIL="Enquiry about the room from the customer";
+
 }
