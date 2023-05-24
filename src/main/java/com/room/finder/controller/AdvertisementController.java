@@ -92,6 +92,15 @@ public class AdvertisementController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong!!!!");
         }
 
+        @RequestMapping(value = "/searchByAddress",method = RequestMethod.GET)
+        @PreAuthorize("hasAuthority('search_advertisement')")
+        ResponseEntity<ArrayList<AdvertisementDto>> searchAdvertisementByAddressController(@RequestParam("address")String address){
+        ArrayList<AdvertisementDto> advertisementDtos=advertisementService.searchAdvertisementByAddress(address);
+        return ResponseEntity.status(HttpStatus.OK).body(advertisementDtos);
+
+        }
+
+
 
     private AdvertisementDto getAdvertisementDto(String advertisementDto) throws JsonProcessingException {
         ObjectMapper objectMapper=new ObjectMapper();

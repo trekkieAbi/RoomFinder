@@ -45,6 +45,8 @@ public class Customer extends User {
 	public void setRoleid(Integer roleid) {
 		this.roleid = roleid;
 	}
+
+
     
 
 }

@@ -13,9 +13,15 @@
     </resultMap>
     <resultMap id="landlordResult" type="com.room.finder.model.Landlord">
       <id property="id" column="landlord_id"/>
+        <result property="houseNumber" column="landlord_houseNumber"/>
         <result property="userId" column="landlord_userId"/>
         <result property="roleId" column="landlord_roleId"/>
+        <association property="user" javaType="com.room.finder.model.User" resultMap="userResult"/>
     </resultMap>
+    <resultMap id="userResult" type="com.room.finder.model.User">
+       <result property="email" column="user_email"/>
+    </resultMap>
+
     <resultMap id="roomDtoResult" type="com.room.finder.dto.RoomDto">
         <id property="id" column="roomDto_id"/>
         <result property="name" column="roomDto_name"/>
@@ -65,6 +71,7 @@ select * from advertisement a where a.id=#{advertisementId}
        select l.id as landlord_id
             ,l.user_id as landlord_userId
             ,l.role_id as landlord_roleId
+
        ,a.id as advertisement_id
        ,a.title as advertisement_title,
         a.description as advertisement_description
@@ -83,6 +90,30 @@ select * from advertisement a where a.id=#{advertisementId}
 select a.id,a.status from  advertisement a inner join landlord l on a.landlord_id=l.id inner join user u on u.id=l.user_id where a.id=#{advertisementId} and l.id=#{landlordId}
 
     </select>
+
+    <select id="findAcceptedAdvertisementById" resultType="com.room.finder.model.Advertisement" parameterType="Integer">
+        select a.id,a.status from advertisement a inner join landlord l on l.id=a.landlord_id inner join user u on u.id=l.user_id where a.id=#{id} and a.status='accepted'
+    </select>
+    <select id="searchRoomByAddress" resultMap="advertisementResult" parameterType="String">
+        <bind name="pattern" value="'%' + _parameter + '%'" />
+        select
+            l.id as landlord_id
+            ,l.user_id as landlord_userId
+             ,l.house_no as landlord_houseNumber
+             ,u.email as user_email
+              ,a.id as advertisement_id
+             ,a.title as advertisement_title
+            ,a.description as advertisement_description
+             ,a.room_available_date as advertisement_roomAvailableDate
+             ,a.address as advertisement_address
+             ,a.rent as advertisement_rent
+             ,r.id as roomDto_id
+             ,r.name as roomDto_name
+             ,r.image as roomDto_image
+             ,r.image_path as roomDto_imageFullPath
+        from user u inner join landlord l on u.id=l.user_id inner join advertisement a on l.id=a.landlord_id inner join room r on a.id=r.advertisement_id where a.address like #{pattern} and a.status='accepted'
+    </select>
+
 
 
 

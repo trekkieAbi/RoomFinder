@@ -21,4 +21,6 @@ public interface AdvertisementService {
 
     Integer deleteAdvertisement(Integer advertisementId,Principal principal) throws IOException;
 
+    ArrayList<AdvertisementDto> searchAdvertisementByAddress(String address);
+
 }

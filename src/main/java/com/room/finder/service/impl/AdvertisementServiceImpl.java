@@ -198,6 +198,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         return resultStatus;
     }
 
+    @Override
+    public ArrayList<AdvertisementDto> searchAdvertisementByAddress(String address) {
+       return advertisementMapper.searchRoomByAddress(address);
+    }
+
     @Transactional(propagation=Propagation.REQUIRED,rollbackFor = {RuntimeException.class,IOException.class})
     @Override
     public Map<Integer, String> editAdvertisement(AdvertisementDto advertisementDto, Principal principal,MultipartFile[] multipartFiles) throws IOException {
