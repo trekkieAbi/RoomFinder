@@ -25,12 +25,14 @@ import com.room.finder.constant.AppConstant;
 import com.room.finder.exception.JwtAuthenticationEntryPoint;
 import com.room.finder.filter.JwtTokenAuthorizationFilter;
 import com.room.finder.security.CustomUserDetailsService;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @ComponentScan({"com.room.finder.*","com.room.finder.controller","com.room.finder.security"})
 @MapperScan("com.room.finder.mapper")
+
 public class MyConfig {
 	@Autowired
    private UserDetailsService  customUserDetailService;

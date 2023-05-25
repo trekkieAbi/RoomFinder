@@ -46,7 +46,21 @@ implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
     
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
 implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+  implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
     
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+//implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
+    
+
+
+
+
+
 
 
 }
