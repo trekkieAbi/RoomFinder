@@ -4,7 +4,7 @@
 	<resultMap id="advertisementResult"
 		type="com.room.finder.dto.AdvertisementDto">
 		<id property="id" column="advertisement_id" />
-		<!-- <result property="title" column="advertisement_title" typeHandler="org.apache.ibatis.type.StringTypeHandler"/> -->
+		 <result property="title" column="advertisement_title" typeHandler="org.apache.ibatis.type.StringTypeHandler"/>
 		<result property="description"
 			column="advertisement_description" />
 		<result property="roomAvailableDate"
@@ -241,14 +241,17 @@
 
 	<select id="selectAdvertisementForEnquiryMailBody"
 		resultMap="advertisementResult" parameterType="Integer">
-	select a.id as advertisement_id,
-		 <!--a.title as advertisement_title,-->
-		 r.id as roomDto_id,
-		 r.name as
-		roomDto_name,
-		u.id as user_id,
-		u.name as user_name,
-		l.id as landlord_id
+	select l.id as landlord_id
+	     ,l.user_id as landlord_userId
+		 ,l.house_no as
+		landlord_houseNumber
+		,u.email as user_email
+		,a.id as
+		advertisement_id
+		,a.title as advertisement_title
+		,r.id as roomDto_id
+		,r.name as
+		roomDto_name
 		from advertisement a inner
 		join room
 		r on a.id=r.advertisement_id

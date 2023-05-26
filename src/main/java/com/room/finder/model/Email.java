@@ -21,9 +21,7 @@ public class Email {
 		this.text = text;
 	}
 
-	public Email() {
-		super();
-	}
+
 
 	String template = AppConstant.EmailTemplatePage;
 	Map<String, Object> properties;

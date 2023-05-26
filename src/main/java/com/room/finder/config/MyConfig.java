@@ -32,7 +32,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableMethodSecurity
 @ComponentScan({"com.room.finder.*","com.room.finder.controller","com.room.finder.security"})
 @MapperScan("com.room.finder.mapper")
-
 public class MyConfig {
 	@Autowired
    private UserDetailsService  customUserDetailService;

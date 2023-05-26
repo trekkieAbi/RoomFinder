@@ -73,7 +73,7 @@ public class AdvertisementController {
         ArrayList<AdvertisementDto> advertisementDtos=advertisementService.getAllAcceptedAdvertisement();
         return ResponseEntity.status(HttpStatus.OK).body(advertisementDtos);
     }
-    @RequestMapping(value = "/edit")
+    @RequestMapping(value = "/edit",method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('update_advertisement')")
     ResponseEntity<Map<Integer,String>> editAdvertisementController(@RequestParam("advertisement") String advertisementDto, @RequestParam("multipartFiles")MultipartFile[] multipartFiles,Principal principal) throws IOException {
         AdvertisementDto advertisementDtoObj = getAdvertisementDto(advertisementDto);
