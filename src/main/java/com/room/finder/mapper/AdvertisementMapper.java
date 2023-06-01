@@ -29,4 +29,5 @@ public interface AdvertisementMapper {
     String selectLandlordEmailByAdvertisementId(Integer id);
 
     AdvertisementDto selectAdvertisementForEnquiryMailBody(Integer id);
+
 }

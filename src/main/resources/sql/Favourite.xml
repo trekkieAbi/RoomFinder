@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.room.finder.mapper.FavouriteMapper">
+    <resultMap id="favouriteResult" type="com.room.finder.dto.FavouriteDto">
+        <id property="id" column="favourite_id"/>
+        <collection property="advertisementDto"  javaType="ArrayList" ofType="com.room.finder.dto.AdvertisementDto" column="id"  resultMap="advertisementDtoResult"/>
+    </resultMap>
+    <resultMap id="advertisementDtoResult" type="com.room.finder.dto.AdvertisementDto">
+        <id property="id" column="advertisementDto_id"/>
+       <result property="title" column="advertisementDto_title"/>
+       <collection property="roomDtoList" javaType="ArrayList" ofType="com.room.finder.dto.RoomDto" column="id" resultMap="roomDtoResult"/>
+    </resultMap>
+    <resultMap id="roomDtoResult" type="com.room.finder.dto.RoomDto">
+       <!--<id property="id" column="roomDto_id"/>-->
+        <result property="image" column="roomDto_image"/>
+        <result property="imageFullPath" column="roomDto_imageFullPath"/>
+        <result property="name" column="roomDto_name"/>
+    </resultMap>
+
+
+
+
+
+   <insert id="addFavourite" parameterType="com.room.finder.model.Favourite" keyProperty="id" useGeneratedKeys="true">
+       insert into favourite(room_id,customer_id,advertisement_id) values (#{roomId},#{customerId},#{advertisementId})
+   </insert>
+
+    <delete id="deleteRoomFromFav" parameterType="Integer">
+        delete  from favourite where id=#{id}
+    </delete>
+    <select id="selectFavouriteByRoomAndUserWithAdvertisement" parameterType="com.room.finder.dto.RemoveRoomFromFavDto" resultType="Integer">
+        select f.id
+        from favourite f inner join room r on r.id=f.room_id
+            inner join advertisement a on a.id=f.advertisement_id
+             inner join customer c on c.id=f.customer_id
+            inner join user u on u.id=c.user_id
+        where f.room_id=#{roomId} and f.advertisement_id=#{advertisementId} and f.customer_id=#{customerId}
+    </select>
+
+
+
+
+    <select id="findAllFavouriteRoom" parameterType="Integer" resultMap="favouriteResult">
+    select
+        f.id as favourite_id
+        ,a.id as advertisementDto_id
+        ,a.title as advertisementDto_title,
+           r.name as roomDto_name,
+           r.image_path as roomDto_imageFullPath,
+           r.id as roomDto_id,
+           r.image as roomDto_image
+        from favourite f
+        inner join customer c on c.id=f.customer_id
+        inner join user u on u.id=c.user_id
+        inner join advertisement a on a.id=f.advertisement_id
+        inner join room r on r.id=f.room_id
+             where f.customer_id=#{customerId}
+    </select>
+
+</mapper>

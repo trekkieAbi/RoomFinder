@@ -12,6 +12,6 @@ public interface RoomMapper {
     RoomDto selecRoomById(Integer id);
 
    Integer deleteRoom(Integer id);
-    RoomDto selectAcceptedRoom(Integer roomId);
 
+    RoomDto selectAcceptedRoom(Integer roomId);
 }

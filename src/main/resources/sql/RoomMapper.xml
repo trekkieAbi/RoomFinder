@@ -11,6 +11,9 @@ select r.id as id,r.image_path as imageFullPath,r.name as name,r.image as image 
     <select id="selecRoomById" parameterType="Integer" resultType="com.room.finder.dto.RoomDto">
         select r.id as id,r.image,r.advertisement_id as image  from room r where r.id=#{id}
     </select>
+    <select id="selectAcceptedRoom" parameterType="Integer" resultType="com.room.finder.dto.RoomDto">
+        select r.id  from room r inner join advertisement a on a.id=r.advertisement_id where r.id=#{id} and a.status='accepted'
+    </select>
 
     <delete id="deleteRoom" parameterType="Integer">
         delete from room  where id=#{id}

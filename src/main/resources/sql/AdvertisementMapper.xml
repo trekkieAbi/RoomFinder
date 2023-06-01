@@ -43,9 +43,31 @@
 	</resultMap>
 
 
-	<!-- <select id="selectRoomDtoForAdvertisement" resultType="com.room.finder.dto.RoomDto"> 
-		select r.image as image,r.name as name,r.image_path as imageFullPath from 
+	<!-- <select id="selectRoomDtoForAdvertisement" resultType="com.room.finder.dto.RoomDto">
+		select r.image as image,r.name as name,r.image_path as imageFullPath from
 		room r where r.advertisement_id=#{id} </select> -->
+    <resultMap id="advertisementResult" type="com.room.finder.dto.AdvertisementDto">
+        <id property="id" column="advertisement_id"/>
+        <result property="title" column="advertisement_title"/>
+        <result property="description" column="advertisement_description"/>
+        <result property="roomAvailableDate" column="advertisement_roomAvailableDate"/>
+        <result property="address" column="advertisement_address"/>
+        <result property="rent" column="advertisement_rent"/>
+        <association property="landlord" javaType="com.room.finder.model.Landlord"  resultMap="landlordResult"/>
+        <collection property="roomDtoList" javaType="ArrayList" ofType="com.room.finder.dto.RoomDto" column="id" resultMap="roomDtoResult"/>
+    </resultMap>
+    <resultMap id="landlordResult" type="com.room.finder.model.Landlord">
+      <id property="id" column="landlord_id"/>
+        <result property="userId" column="landlord_userId"/>
+        <result property="roleId" column="landlord_roleId"/>
+    </resultMap>
+    <resultMap id="roomDtoResult" type="com.room.finder.dto.RoomDto">
+        <id property="id" column="roomDto_id"/>
+        <result property="name" column="roomDto_name"/>
+        <result property="image" column="roomDto_image"/>
+        <result property="imageFullPath" column="roomDto_imageFullPath"/>
+
+    </resultMap>
 
 
 
@@ -226,17 +248,17 @@
 		select * from advertisement a inner join room r on
 		r.advertisement_id=a.id
 		where r.id=#{id} and a.status='accepted'
-
 	</select>
-
 	<select id="selectLandlordEmailByAdvertisementId"
-		resultType="String" parameterType="Integer">
+			resultType="String" parameterType="Integer">
 		select u.email from advertisement a
-		inner join landlord l on
-		l.id=a.landlord_id inner join user u on u.id
-		=l.user_id where
-		a.id=#{id}
+								inner join landlord l on
+			l.id=a.landlord_id inner join user u on u.id
+			=l.user_id where
+			a.id=#{id}
 	</select>
+
+
 
 
 	<select id="selectAdvertisementForEnquiryMailBody"
@@ -262,5 +284,60 @@
 		where r.id=#{id}
 	</select>
 
+    <insert id="saveAdvertisement" parameterType="com.room.finder.model.Advertisement" useGeneratedKeys="true" keyProperty="id">
+       insert into advertisement(title,description,room_available_date,address,rent,landlord_id,status,number_of_room)values
+       (#{title},#{description},#{roomAvailableDate},#{address},#{rent},#{landlordId},#{status},#{numberOfRoom})
+    </insert>
+    <update id="updateAdvertisement" parameterType="com.room.finder.model.Advertisement">
+        update advertisement a set a.title=#{title},a.description=#{description},a.room_available_date=#{roomAvailableDate},a.rent=#{rent},a.status=#{status} where a.id=#{id};
+    </update>
+    <delete id="deleteAdvertisement" parameterType="Integer">
+        delete from advertisement where id=#{id}
+    </delete>
+    <select id="findPendingAdvertisementByIdAndUser" resultType="com.room.finder.model.Advertisement" parameterType="com.room.finder.dto.SearchAdvertisementDto">
+        select * from advertisement a inner join landlord l on a.landlord_id=l.id inner join user u on u.id=l.user_id where a.landlord_id=#{landlordId} and a.id=#{advertisementId} and a.status='pending';
+    </select>
+    <select id="findAllAcceptedAdvertisementCreatedByLandlord" parameterType="Integer" resultType="com.room.finder.dto.AdvertisementDto">
+select a.id as id,a.title as title,a.description as description,a.room_available_date as roomAvailableDate,a.address as address,a.rent as rent from advertisement a inner join landlord l on a.landlord_id=l.id inner join user u on u.id=l.user_id where a.landlord_id=#{landlordId} and a.status='accepted'
+ </select>
+    <select id="findAllUnderReviewAdvertisement" resultType="com.room.finder.model.Advertisement">
+        select * from advertisement a inner join room r on a.id=r.advertisement_id;
+    </select>
+
+    <select id="findUnderReviewAdvertisementById" resultType="com.room.finder.model.Advertisement" parameterType="Integer">
+select * from advertisement a inner join landlord l on a.landlord_id=l.id inner join user u on l.user_id=u.id where a.id=#{id} and a.status='under_review';
+    </select>
+
+    <select id="findAdvertisementById" resultType="com.room.finder.model.Advertisement" parameterType="Integer">
+select * from advertisement a where a.id=#{advertisementId}
+    </select>
+
+
+    <select id="findAllAcceptedAdvertisement" resultMap="advertisementResult">
+       select l.id as landlord_id
+            ,l.user_id as landlord_userId
+            ,l.role_id as landlord_roleId
+       ,a.id as advertisement_id
+       ,a.title as advertisement_title,
+        a.description as advertisement_description
+            ,a.room_available_date as advertisement_roomAvailableDate
+            ,a.address as advertisement_address
+            ,a.rent as advertisement_rent
+       ,r.id as roomDto_id
+       ,r.name as roomDto_name
+       ,r.image as roomDto_image
+       ,r.image_path as roomDto_imageFullPath
+       from user u inner join landlord l on u.id=l.user_id inner join advertisement a on l.id=a.landlord_id inner join room r on a.id=r.advertisement_id where a.status='accepted'
+
+    </select>
+
+    <select id="findAcceptedAdvertisementById" resultType="com.room.finder.model.Advertisement" parameterType="Integer">
+        select a.id,a.status from advertisement a inner join landlord l on l.id=a.landlord_id inner join user u on u.id=l.user_id where a.id=#{id} and a.status='accepted'
+    </select>
+
+    <select id="findAdvertisementByLandlordIdAndAdvertisementId" parameterType="com.room.finder.dto.SearchAdvertisementDto" resultType="com.room.finder.model.Advertisement">
+select a.id,a.status from  advertisement a inner join landlord l on a.landlord_id=l.id inner join user u on u.id=l.user_id where a.id=#{advertisementId} and l.id=#{landlordId}
+
+    </select>
 
 </mapper>
