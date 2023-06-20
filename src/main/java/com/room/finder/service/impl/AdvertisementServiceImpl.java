@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Transactional
 @Service
@@ -52,6 +54,8 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     ImageUploadService imageUploadService;
     @Autowired
     AdvertisementHelper advertisementHelper;
+
+    ExecutorService executorService= Executors.newSingleThreadExecutor();
 
     @Override
     public Map<Integer,String> saveAdvertisement(AdvertisementDto advertisementDto, MultipartFile[] multipartFiles, Principal principal) throws IOException {
@@ -122,7 +126,13 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             User retrievedUser=userMapper.findUserById(landlord.getUserId());
            Email retrievedEmail=getEmail(retrievedUser,submittedAdvertisement);
            try {
-               emailService.sendHtmlMessage(retrievedEmail);
+               executorService.execute(new Runnable() {
+                   @Override
+                   public void run() {
+                       emailService.sendSimpleMail(retrievedEmail);
+                   }
+               });
+               executorService.shutdown();
            }catch (RuntimeException e){
                throw new MessagingException(e.getLocalizedMessage());
            }
@@ -149,13 +159,19 @@ public class AdvertisementServiceImpl implements AdvertisementService {
             Landlord landlord=landlordMapper.findLandlordById(submittedAdvertisement.getLandlordId());
             User retrievedUser=userMapper.findUserById(landlord.getUserId());
             email=getEmail(retrievedUser,submittedAdvertisement);
-            try{
-                emailService.sendHtmlMessage(email);
 
-            }catch (RuntimeException e){
-                throw new MessagingException(e.getLocalizedMessage());
-            }
-            message.put(200,"email has been sent to the landlord's registered gmail,please check it for more information");
+                executorService.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            emailService.sendHtmlMessage(email);
+                        } catch (MessagingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+                executorService.shutdown();
+                message.put(200,"email has been sent to the landlord's registered gmail,please check it for more information");
         }
         return message;
     }

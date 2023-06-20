@@ -1,5 +1,8 @@
 package com.room.finder.service.impl;
+import com.room.finder.constant.ErrorConstant;
 import com.room.finder.dto.UserDto;
+import com.room.finder.exception.EmailAlreadyExistsException;
+import com.room.finder.exception.UserNameAlreadyExistsException;
 import com.room.finder.mapper.CustomerMapper;
 import com.room.finder.mapper.LandlordMapper;
 import com.room.finder.mapper.ModeratorMapper;
@@ -34,6 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String registerUser(UserDto userDto) {
         String message="";
+        checkWhetherEmailAndUserNameExists(userDto.getUser().getEmail(),userDto.getUser().getName());
         String name=checkUser(userDto);
         switch (name){
             case "Landlord":
@@ -83,7 +87,20 @@ public class UserServiceImpl implements UserService {
             userDto.setHouseNumber(null);
             return "Customer";
         }else {
-            throw new RuntimeException("Invalid role for the registration!!!");
+         return "Moderator";
         }
+    }
+
+    private void checkWhetherEmailAndUserNameExists(String userEmail,String userName){
+        User userByName=userMapper.findUserByName(userName);
+        User userByEmail=userMapper.findUserByEmail(userEmail);
+        if(userByName!=null){
+            throw new UserNameAlreadyExistsException(ErrorConstant.USERNAME_EXISTS);
+        }
+        if(userByEmail!=null){
+            throw new EmailAlreadyExistsException(ErrorConstant.EMAIL_EXISTS);
+        }
+
+
     }
 }

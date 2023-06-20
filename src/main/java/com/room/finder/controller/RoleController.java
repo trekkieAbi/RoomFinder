@@ -34,8 +34,8 @@ public class RoleController {
     }
 
     @RequestMapping(value = "/read/{roleId}",method = RequestMethod.GET)
-    ResponseEntity<?> readRoleController(@PathVariable Integer role){
-        Role retrievedRole=roleService.findById(role);
+    ResponseEntity<?> readRoleController(@PathVariable Integer roleId){
+        Role retrievedRole=roleService.findById(roleId);
         if(retrievedRole!=null){
             return ResponseEntity.status(HttpStatus.OK).body(retrievedRole);
         }

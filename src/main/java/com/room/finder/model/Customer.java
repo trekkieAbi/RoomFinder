@@ -7,12 +7,23 @@ public class Customer extends User {
     private Integer userId;
     private Integer roleid;
 
-    public Customer(String phoneNumber, Integer userId, Integer roleid) {
+    public Customer(Integer id,String phoneNumber, Integer userId, Integer roleid) {
     	super();
+		this.id=id;
         this.phoneNumber = phoneNumber;
         this.userId = userId;
         this.roleid = roleid;
     }
+
+	public Customer(String phoneNumber, Integer userId, Integer roleid) {
+		this.phoneNumber = phoneNumber;
+		this.userId = userId;
+		this.roleid = roleid;
+	}
+
+	public Customer(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	public Integer getId() {
 		return id;

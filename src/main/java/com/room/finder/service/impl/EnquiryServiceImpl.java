@@ -3,6 +3,8 @@ package com.room.finder.service.impl;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.mail.MessagingException;
 
@@ -37,6 +39,7 @@ public class EnquiryServiceImpl implements EnquiryService {
 
     @Autowired
     private EmailServiceImpl emailService;
+    ExecutorService executorService= Executors.newSingleThreadExecutor();
     @Override
     @Transactional(rollbackFor = {RuntimeException.class,MessagingException.class})
     public Integer makeEnquiry(Enquiry enquiry, Principal principal) throws MessagingException {
@@ -51,7 +54,18 @@ public class EnquiryServiceImpl implements EnquiryService {
                 try{
                      status=enquiryMapper.makeEnquiry(enquiry);
                     if(status>0) {
-                        emailService.sendHtmlMessage(getWrittenEmail(enquiry.getRoomId(), retrievedAdvertisement.getId(), principal));
+                        executorService.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    emailService.sendHtmlMessage(getWrittenEmail(enquiry.getRoomId(), retrievedAdvertisement.getId(), principal));
+                                } catch (MessagingException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }
+                        });
+                        executorService.shutdown();
                     }
                     else {
                         throw new RuntimeException("something went wrong");

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
-@NoArgsConstructor
+
 public class Email {
 
 	String to;
@@ -19,6 +19,12 @@ public class Email {
 		this.from = from;
 		this.subject = subject;
 		this.text = text;
+	}
+
+
+
+	public Email() {
+		super();
 	}
 
 

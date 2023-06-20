@@ -21,7 +21,11 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -43,7 +47,11 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    ResponseEntity<String> registerUser(@RequestBody UserDto userDto){
+    ResponseEntity<String> registerUser(@Valid @RequestBody  UserDto userDto,BindingResult bindingResult) throws MethodArgumentNotValidException {
+        if(bindingResult.hasErrors()){
+            throw new MethodArgumentNotValidException(null,bindingResult);
+        }
+
         String message=userService.registerUser(userDto);
         return  ResponseEntity.status(HttpStatus.OK).body(message);
     }

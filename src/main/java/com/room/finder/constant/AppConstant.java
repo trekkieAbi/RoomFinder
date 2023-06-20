@@ -9,7 +9,7 @@ public class AppConstant {
     public static final Integer MAX_IMAGE_NO=10;
     public static final Integer MIN_IMAGE_NO=1;
 
-    public static final String[] PUBLIC_URLS = { "/user/login","/user/register","/role/**","/authority/create","/role-authority/create","/v2/api-docs","/swagger-resources/**","/swagger-ui/**","/webjars/**"};
+    public static final String[] PUBLIC_URLS = { "/user/login","/user/register","/role/**","/authority/create","/role-authority/create","/v2/api-docs","/swagger-resources/**","/swagger-ui/**","/webjars/**","/authority/readAll"};
 
     @Value("${project.image}")
     private static String FixedPath;

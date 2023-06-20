@@ -2,6 +2,7 @@ package com.room.finder.filter;
 import com.room.finder.security.CustomUserDetailsService;
 import com.room.finder.util.JwtHelper;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -33,23 +34,24 @@ public class JwtTokenAuthorizationFilter extends OncePerRequestFilter {
             response.setStatus(HttpStatus.OK.value());
         }
         else {
+            Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
             String requestToken=request.getHeader("Authorization");
-            if(requestToken!=null && requestToken.startsWith("Bearer"));
             String userName=null;
             String jwtToken="null";
             if(requestToken!=null && requestToken.startsWith("Bearer ")) {
                 jwtToken=requestToken.substring(7);
                 try {
                     userName = this.jwtHelper.getUserNameFromToken(jwtToken);
-
-
                 }catch(ExpiredJwtException e) {
-                    e.printStackTrace();
+                    throw new ExpiredJwtException(null,null,e.getMessage());
 
+                }
+                catch (MalformedJwtException exception){
+                    throw new MalformedJwtException(exception.getMessage(),null);
                 }
             }
             else {
-                System.out.println("Invalid token");
+                System.out.println("Inval");
             }
             if(userName!=null && SecurityContextHolder.getContext().getAuthentication()==null) {
                 final UserDetails userDetails=this.customUserDetailService.loadUserByUsername(userName);

@@ -10,4 +10,5 @@ public interface UserMapper {
     Integer updateUser(User user);
     User findUserByEmail(String email);
     User findUserById(Integer id);
+    User findUserByName(String name);
 }

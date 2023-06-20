@@ -11,6 +11,6 @@
         select * from customer where id=#{id}
     </select>
     <select id="findCustomerByUser" parameterType="Integer" resultType="com.room.finder.model.Customer">
-        select * from customer c inner join user u on c.user_id=u.id where user_id=#{userId}
+        select c.* from customer c right join user u on c.user_id=u.id where c.user_id=#{userId}
     </select>
 </mapper>

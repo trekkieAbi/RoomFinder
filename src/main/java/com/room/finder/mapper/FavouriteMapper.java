@@ -5,7 +5,7 @@ import com.room.finder.dto.RemoveRoomFromFavDto;
 import com.room.finder.model.Favourite;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
+
 
 @Mapper
 public interface FavouriteMapper {

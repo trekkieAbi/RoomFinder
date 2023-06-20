@@ -1,5 +1,6 @@
 package com.room.finder.controller;
 
+import com.room.finder.mapper.AuthorityMapper;
 import com.room.finder.model.Authority;
 import com.room.finder.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -14,6 +17,8 @@ import java.util.Map;
 public class AuthorityController {
     @Autowired
     private AuthorityService authorityService;
+    @Autowired
+    private AuthorityMapper authorityMapper;
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     ResponseEntity<Map<Integer,String>> createAuthorityController(@RequestBody Authority authority) throws Exception {
         Map<Integer,String> message=authorityService.createAuthority(authority);
@@ -30,6 +35,12 @@ public class AuthorityController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong");
     }
+
+    @GetMapping(value = "/readAll")
+    ArrayList<Authority> getAllAuthority(){
+        return authorityMapper.getAllAuthority();
+    }
+
 
 
 }

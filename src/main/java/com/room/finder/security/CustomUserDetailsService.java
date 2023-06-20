@@ -25,8 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 @Autowired
     private RoleAuthorityMapper roleAuthorityMapper;
 @Autowired
-
-    private LandlordMapper landlordMapper;
+ private LandlordMapper landlordMapper;
 @Autowired
     private  CustomerMapper customerMapper;
 @Override

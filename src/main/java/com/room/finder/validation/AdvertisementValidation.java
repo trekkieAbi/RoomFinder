@@ -8,7 +8,7 @@ import java.util.Date;
 public class AdvertisementValidation {
     public static boolean validateRoomAvailableDate(Date date){
         boolean status=false;
-        if(date.before(new Date())){
+        if(date.after(new Date())){
             status=true;
         }
 return status;

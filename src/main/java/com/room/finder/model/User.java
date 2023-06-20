@@ -2,12 +2,22 @@ package com.room.finder.model;
 
 import lombok.AllArgsConstructor;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @AllArgsConstructor
 
 public class User {
     private Integer id;
+	@NotBlank(message = "Invalid Name:Empty name")
+	@NotNull(message = "Invalid Name:Name is NULL")
+	@Size(min = 3,max = 30,message = "Invalid Name:Must be of 3-30 characters")
     private String name;
+	@Email(message = "Invalid email")
     private String email;
+@Size(min = 5,max = 15,message = "Invalid Password:Must be of 5-15 characters")
     private String password;
     private boolean isEnabled;
     private String roleName;

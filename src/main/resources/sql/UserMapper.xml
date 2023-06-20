@@ -17,4 +17,7 @@
     <select id="findUserById" resultType="com.room.finder.model.User" parameterType="Integer">
         select * from `user` where id=#{id}
     </select>
+    <select id="findUserByName" resultType="com.room.finder.model.User" parameterType="String">
+        select * from `user` where name=#{name}
+    </select>
 </mapper>

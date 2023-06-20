@@ -28,7 +28,7 @@ implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
 
     implementation('org.springframework.boot:spring-boot-starter-security')
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
@@ -40,10 +40,8 @@ implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
 // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    
+
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
 implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
@@ -57,12 +55,34 @@ implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
 //implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
-    
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    //testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.2'
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+   // testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+    //testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    implementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '5.3.1'
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    //implementation group: 'org.mockito', name: 'mockito-core', version: '5.3.1'
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+   // implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    implementation group: 'junit', name: 'junit', version: '4.13.2'
 
 
+    // https://mvnrepository.com/artifact/org.zalando/problem
+    implementation group: 'org.zalando', name: 'problem', version: '0.27.1'
+    implementation group: 'org.zalando', name: 'jackson-datatype-problem', version: '0.20.3'
+// https://mvnrepository.com/artifact/org.zalando/problem-violations
+    implementation group: 'org.zalando', name: 'problem-violations', version: '0.25.2'
 
-
-
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 
 }

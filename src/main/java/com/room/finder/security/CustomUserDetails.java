@@ -4,6 +4,7 @@ import com.room.finder.dto.UserDto;
 import com.room.finder.mapper.RoleAuthorityMapper;
 import com.room.finder.model.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,8 +15,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 public class CustomUserDetails implements UserDetails {
 
-   private UserDto userDto;
-
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+@Autowired
+private UserDto userDto;
+@Autowired
     private RoleAuthorityMapper roleAuthorityMapper;
 
     public CustomUserDetails(UserDto userDto, RoleAuthorityMapper roleAuthorityMapper) {
